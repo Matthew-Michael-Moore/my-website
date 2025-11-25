@@ -1,30 +1,73 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function Home() {
+  const router = useRouter();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <h1 className="text-4xl font-bold text-black dark:text-white mb-6">
-          Welcome to the Academic Peer Marketplace
-        </h1>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-8 max-w-lg">
-          A platform where students can share notes, request help, and build their academic reputation — all in one place.
+    <div className="min-h-screen flex flex-col">
+      {/* Navbar */}
+      <header className="flex justify-between items-center px-8 py-6 bg-[#ff7f50] text-white">
+        <h1 className="text-2xl font-bold">Academic Peer Marketplace</h1>
+        <div className="space-x-4">
+          <button
+            onClick={() => router.push("/login")}
+            className="px-4 py-2 bg-white text-[#ff7f50] rounded font-semibold hover:opacity-90 transition"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => router.push("/login")}
+            className="px-4 py-2 bg-[#50d0ff] text-black rounded font-semibold hover:opacity-90 transition"
+          >
+            Create Account
+          </button>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <main className="flex flex-col items-center justify-center flex-1 px-8 text-center bg-gray-50">
+        {/* Logo centered */}
+        <div className="mb-8">
+          <Image
+            src="/logo.png" // put your logo in the public folder
+            alt="Academic Peer Marketplace"
+            width={300}     // adjust width to fit nicely
+            height={450}    // keeps the tall aspect ratio
+          />
+        </div>
+
+        <h2 className="text-4xl font-bold mb-6 text-[#ff7f50]">
+          A Marketplace Where Academic Help is the Currency
+        </h2>
+        <p className="text-lg mb-8 max-w-xl text-gray-700">
+          Students can earn and spend currency by sharing notes, helping each
+          other with homework, and building their tutoring reputation. Learn,
+          help, and grow — all in one platform.
         </p>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-blue-600 px-5 text-white transition-colors hover:bg-blue-700 md:w-[158px]"
-            href="#"
+
+        <div className="space-x-4">
+          <button
+            onClick={() => router.push("/login")}
+            className="px-6 py-3 bg-[#ff7f50] text-white rounded font-semibold hover:opacity-90 transition"
           >
             Get Started
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] md:w-[158px]"
-            href="#"
+          </button>
+          <button
+            onClick={() => router.push("/login")}
+            className="px-6 py-3 bg-[#50d0ff] text-black rounded font-semibold hover:opacity-90 transition"
           >
             Learn More
-          </a>
+          </button>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="text-center p-6 bg-gray-200 text-gray-700">
+        &copy; {new Date().getFullYear()} Academic Peer Marketplace
+      </footer>
     </div>
   );
 }
