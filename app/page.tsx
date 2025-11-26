@@ -19,7 +19,7 @@ export default function Home() {
             Login
           </button>
           <button
-            onClick={() => router.push("/login")}
+            onClick={() => router.push("/signup")}
             className="px-4 py-2 bg-[#50d0ff] text-black rounded font-semibold hover:opacity-90 transition"
           >
             Create Account

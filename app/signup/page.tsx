@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { auth, googleProvider } from "../../firebaseConfig";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,26 +15,14 @@ export default function LoginPage() {
   const isValidDomain = (email: string) =>
     email.toLowerCase().endsWith("@pewaukeeschools.org");
 
-  const handleEmailLogin = async () => {
+  const handleSignUp = async () => {
     if (!isValidDomain(email)) {
       setError("Email must end in @pewaukeeschools.org");
       return;
     }
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
 
-  const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      if (!isValidDomain(result.user.email || "")) {
-        setError("Google account must end in @pewaukeeschools.org");
-        return;
-      }
+      await createUserWithEmailAndPassword(auth, email, password);
       router.push("/dashboard");
     } catch (err: any) {
       setError(err.message);
@@ -84,7 +72,7 @@ export default function LoginPage() {
         </button>
 
 
-        <h1 style={{ textAlign: "center", marginBottom: 20 }}>Login</h1>
+        <h1 style={{ textAlign: "center", marginBottom: 20 }}>Create Account</h1>
 
         {error && <p style={{ color: "red", marginBottom: 10 }}>{error}</p>}
 
@@ -105,24 +93,7 @@ export default function LoginPage() {
         />
 
         <button
-          onClick={handleEmailLogin}
-          style={{
-            width: "100%",
-            padding: 12,
-            backgroundColor: "#ff7f50",
-            color: "white",
-            border: "none",
-            borderRadius: 8,
-            marginBottom: 10,
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          Login with Email
-        </button>
-
-        <button
-          onClick={handleGoogleLogin}
+          onClick={handleSignUp}
           style={{
             width: "100%",
             padding: 12,
@@ -134,7 +105,7 @@ export default function LoginPage() {
             cursor: "pointer",
           }}
         >
-          Login with Google
+          Create Account
         </button>
       </div>
     </div>
